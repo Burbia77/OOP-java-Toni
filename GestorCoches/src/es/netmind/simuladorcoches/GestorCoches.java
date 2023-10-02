@@ -4,7 +4,7 @@ import es.netmind.simuladorcoches.modelos.coches.*;
 
 public class GestorCoches {
 
-    static int DISTANCIA = 100;
+    static int DISTANCIA = 200;
 
     public static void main(String[] args) {
         System.out.println("SIMULADOR DE COCHES");
