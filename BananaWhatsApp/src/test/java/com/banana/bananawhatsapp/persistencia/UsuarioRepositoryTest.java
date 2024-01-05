@@ -22,11 +22,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ContextConfiguration(classes = {SpringConfig.class})
 
 /*
-//Pruebas UsuarioInMemoryRepository
+//Pruebas UsuarioInMemoryRepository (se activa el uso del bean dev de ReposConfig)
 @ActiveProfiles("dev")
 */
 
-//Pruebas UsuarioDBRepository
+//Pruebas UsuarioDBRepository (se activa el uso del bean prod de ReposConfig)
 @ActiveProfiles("prod")
 
 class UsuarioRepositoryTest {
@@ -67,7 +67,7 @@ class UsuarioRepositoryTest {
 
     @Test
     void dadoUnUsuarioValido_cuandoBorrar_entoncesOK() throws SQLException {
-        Usuario usuario = new Usuario(6, "Antonio", "alr@gmail.com", LocalDate.now(), true);
+        Usuario usuario = new Usuario(8, "Antonio", "alr@gmail.com", LocalDate.now(), true);
         boolean ok = repo.borrar(usuario);
 
         assertThat(ok, is(true));

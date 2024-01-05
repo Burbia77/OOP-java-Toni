@@ -6,12 +6,21 @@ import com.banana.bananawhatsapp.servicios.IServicioUsuarios;
 import com.banana.bananawhatsapp.servicios.ServicioUsuarios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 
 @Configuration
 public class ServicesConfig {
+    @Value("${db_url}")
+    String connUrl;
 
+    //En los servicios, no tenemos un perfil definido y siempre ejecutaran default, por tanto tenemos que crear un bean de repo de usuarios para el perfil default
+    @Bean
+    @Profile("default")
+    /*public IUsuarioRepository createIUsuarioRepository() {*/
+    IUsuarioRepository createUsuarioRepository() {
+        System.out.println("usando persistencia.UsuarioDBRepository (prod)");
+        UsuarioDBRepository repo = new UsuarioDBRepository();
+        repo.setDb_url(connUrl);
+        return repo;
+    }
 }

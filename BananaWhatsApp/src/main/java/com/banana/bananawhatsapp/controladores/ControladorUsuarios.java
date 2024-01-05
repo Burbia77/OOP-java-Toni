@@ -2,7 +2,11 @@ package com.banana.bananawhatsapp.controladores;
 
 import com.banana.bananawhatsapp.modelos.Usuario;
 import com.banana.bananawhatsapp.servicios.IServicioUsuarios;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class ControladorUsuarios {
 
     private IServicioUsuarios servicioUsuarios;
@@ -16,7 +20,6 @@ public class ControladorUsuarios {
             System.out.println("Ha habido un error: " + e.getMessage());
             throw e;
         }
-
     }
 
     public Usuario actualizar(Usuario usuario) {
@@ -28,7 +31,6 @@ public class ControladorUsuarios {
             System.out.println("Ha habido un error: " + e.getMessage());
             throw e;
         }
-
     }
 
     public boolean baja(Usuario usuario) {

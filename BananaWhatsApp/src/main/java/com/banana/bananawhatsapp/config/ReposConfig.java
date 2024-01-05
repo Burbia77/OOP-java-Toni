@@ -17,6 +17,7 @@ public class ReposConfig {
     @Value("${db_url}")
     String connUrl;
 
+    //Bean asociado al perfil produccion
     @Bean
     @Profile("prod")
     /*public IUsuarioRepository createIUsuarioRepository() {*/
@@ -27,6 +28,8 @@ public class ReposConfig {
         return repo;
     }
 
+
+    //Bean asociado al perfil desarrollo
     @Bean
     @Profile("dev")
     /*public IUsuarioRepository createInMemUsuarioRepository() {*/

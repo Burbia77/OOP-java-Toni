@@ -28,7 +28,14 @@ public class ServicioUsuarios implements IServicioUsuarios {
 
     @Override
     public boolean borrarUsuario(Usuario usuario) throws UsuarioException {
-        return false;
+        try {
+            usuario.valido();
+            usuarioRepo.borrar(usuario);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UsuarioException("Error borrando usuario: " + e.getMessage());
+        }
+        return true;
     }
 
     @Override

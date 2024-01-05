@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@Import({ReposConfig.class, ServicesConfig.class})
+@Import({ReposConfig.class, ServicesConfig.class, ControllerConfig.class})
 @ComponentScan(basePackages = {"com.banana.bananawhatsapp.servicios"})
 @PropertySource("classpath:application.properties")
 

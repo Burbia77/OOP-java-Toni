@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,13 +23,13 @@ class ServicioUsuariosTest {
     @Autowired
     IServicioUsuarios servicio;
 
-    /*@Test
+    @Test
     void testBeans() {
         assertThat(servicio, notNullValue());
-    }*/
+    }
 
     @Test
-    void dadoUnUsuarioValido_cuandoCrearUsuario_entoncesUsuarioValido() {
+    void dadoUnUsuarioValido_cuandoCrearUsuario_entoncesUsuarioValido() throws Exception {
         Usuario nuevo = new Usuario(null, "Maria", "maria@gmail.com", LocalDate.now(), true);
         servicio.crearUsuario(nuevo);
         System.out.println(nuevo);
@@ -37,19 +38,29 @@ class ServicioUsuariosTest {
     }
 
     @Test
-    void dadoUnUsuarioNOValido_cuandoCrearUsuario_entoncesExcepcion() {
-        Usuario nuevo = new Usuario(null, "Ricardo", "r", LocalDate.now(), true);
+    void dadoUnUsuarioNOValido_cuandoCrearUsuario_entoncesExcepcion() throws Exception {
+        Usuario nuevo = new Usuario(null, "Maria", "mariagmail.com", LocalDate.now(), true);
+
         assertThrows(UsuarioException.class, () -> {
             servicio.crearUsuario(nuevo);
         });
     }
 
     @Test
-    void dadoUnUsuarioValido_cuandoBorrarUsuario_entoncesUsuarioValido() {
+    void dadoUnUsuarioValido_cuandoBorrarUsuario_entoncesUsuarioValido() throws Exception {
+        Usuario usuario = new Usuario(15, "Maria", "maria@gmail.com", LocalDate.now(), true);
+        boolean ok = servicio.borrarUsuario(usuario);
+
+        assertThat(ok, is(true));
     }
 
     @Test
-    void dadoUnUsuarioNOValido_cuandoBorrarUsuario_entoncesExcepcion() {
+    void dadoUnUsuarioNOValido_cuandoBorrarUsuario_entoncesExcepcion() throws Exception {
+        Usuario usuario = new Usuario(4, "Antonio", "alr@gmail.com", LocalDate.now(), true);
+
+        assertThrows(UsuarioException.class, () -> {
+            boolean ok = servicio.borrarUsuario(usuario);
+        });
     }
 
     @Test
