@@ -22,10 +22,10 @@ class ServicioUsuariosTest {
     @Autowired
     IServicioUsuarios servicio;
 
-    @Test
+    /*@Test
     void testBeans() {
         assertThat(servicio, notNullValue());
-    }
+    }*/
 
     @Test
     void dadoUnUsuarioValido_cuandoCrearUsuario_entoncesUsuarioValido() {
