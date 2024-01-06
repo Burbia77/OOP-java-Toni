@@ -21,17 +21,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ControladorUsuariosTest {
 
     @Autowired
-    ControladorUsuarios controlador;
+    ControladorUsuarios controlUsu;
 
     @Test
     void testBeans() {
-        assertThat(controlador, notNullValue());
+        assertThat(controlUsu, notNullValue());
     }
 
     @Test
     void dadoUsuarioValido_cuandoAlta_entoncesUsuarioValido() throws Exception {
         Usuario nuevo = new Usuario(null, "Antonio", "alr@alr.com", LocalDate.now(), true);
-        controlador.alta(nuevo);
+        controlUsu.alta(nuevo);
 
         assertThat(nuevo, notNullValue());
         assertThat(nuevo.getId(), greaterThan(0));
@@ -42,7 +42,7 @@ class ControladorUsuariosTest {
         Usuario nuevo = new Usuario(null, "Maria", "mariagmail.com", LocalDate.now(), true);
 
         assertThrows(Exception.class, () -> {
-            controlador.alta(nuevo);
+            controlUsu.alta(nuevo);
         });
     }
 

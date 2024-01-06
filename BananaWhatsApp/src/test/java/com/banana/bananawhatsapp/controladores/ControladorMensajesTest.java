@@ -22,20 +22,29 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ControladorMensajesTest {
 
     @Autowired
-    ControladorMensajes controladorMensajes;
+    ControladorMensajes controlMen;
 
     @Autowired
-    ControladorUsuarios controlador;
+    ControladorUsuarios controlUsu;
 
     @Test
     void testBeans() {
-        assertThat(controladorMensajes, notNullValue());
-        assertThat(controlador, notNullValue());
+        assertThat(controlMen, notNullValue());
+        assertThat(controlUsu, notNullValue());
     }
 
     @Test
-    void dadoRemitenteYDestinatarioYTextoValidos_cuandoEnviarMensaje_entoncesOK() {
-        /*ALR-NO CONSIGO CREAR EL MENSAJE*/
+    void dadoRemitenteYDestinatarioYTextoValidos_cuandoEnviarMensaje_entoncesOK() throws Exception {
+        Usuario usuRem = new Usuario(null, "Bea", "ppp@gmail.com", LocalDate.now(), true);
+        controlUsu.alta(usuRem);
+
+        Usuario usuDes = new Usuario(null, "Pol", "ttt@gmail.com", LocalDate.now(), true);
+        controlUsu.alta(usuDes);
+
+        //Esto provoca una excepcion por mensaje no valido
+        controlMen.enviarMensaje(usuRem.getId(), usuDes.getId(), "Ande iras");
+
+        //Y que compruebo en el ASSERTTHAT?.. como lo monto?
     }
 
     @Test

@@ -3,6 +3,7 @@ package com.banana.bananawhatsapp.servicios;
 import com.banana.bananawhatsapp.config.SpringConfig;
 import com.banana.bananawhatsapp.exceptions.UsuarioException;
 import com.banana.bananawhatsapp.exceptions.MensajeException;
+import com.banana.bananawhatsapp.modelos.Mensaje;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,16 +25,29 @@ import static org.junit.jupiter.api.Assertions.*;
 class ServicioMensajeriaTest {
 
     @Autowired
-    IServicioMensajeria servicioMensaje;
+    IServicioUsuarios serviUsu;
+
+    @Autowired
+    IServicioMensajeria serviMen;
 
     @Test
     void testBeans() {
-        assertThat(servicioMensaje, notNullValue());
+        assertThat(serviMen, notNullValue());
+        assertThat(serviUsu, notNullValue());
     }
 
     @Test
     void dadoRemitenteYDestinatarioYTextoValido_cuandoEnviarMensaje_entoncesMensajeValido() {
-        /*ALR-NO CONSIGO CREAR EL MENSAJE*/
+
+        Usuario usuRem = new Usuario(null, "Juan", "ppp@gmail.com", LocalDate.now(), true);
+        serviUsu.crearUsuario(usuRem);
+
+        Usuario usuDes = new Usuario(null, "Sara", "ttt@gmail.com", LocalDate.now(), true);
+        serviUsu.crearUsuario(usuDes);
+
+        serviMen.enviarMensaje(usuRem, usuDes, "Parece que va a llover");
+
+        //Y que compruebo en el ASSERTTHAT?.. como lo monto?
     }
 
     @Test

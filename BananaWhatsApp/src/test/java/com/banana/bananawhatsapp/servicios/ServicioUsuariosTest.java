@@ -21,17 +21,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ServicioUsuariosTest {
 
     @Autowired
-    IServicioUsuarios servicio;
+    IServicioUsuarios serviUsu;
 
     @Test
     void testBeans() {
-        assertThat(servicio, notNullValue());
+        assertThat(serviUsu, notNullValue());
     }
 
     @Test
     void dadoUnUsuarioValido_cuandoCrearUsuario_entoncesUsuarioValido() throws Exception {
         Usuario nuevo = new Usuario(null, "Maria", "maria@gmail.com", LocalDate.now(), true);
-        servicio.crearUsuario(nuevo);
+        serviUsu.crearUsuario(nuevo);
         System.out.println(nuevo);
         assertThat(nuevo, notNullValue());
         assertThat(nuevo.getId(), greaterThan(0));
@@ -42,14 +42,14 @@ class ServicioUsuariosTest {
         Usuario nuevo = new Usuario(null, "Maria", "mariagmail.com", LocalDate.now(), true);
 
         assertThrows(UsuarioException.class, () -> {
-            servicio.crearUsuario(nuevo);
+            serviUsu.crearUsuario(nuevo);
         });
     }
 
     @Test
     void dadoUnUsuarioValido_cuandoBorrarUsuario_entoncesUsuarioValido() throws Exception {
         Usuario usuario = new Usuario(15, "Maria", "maria@gmail.com", LocalDate.now(), true);
-        boolean ok = servicio.borrarUsuario(usuario);
+        boolean ok = serviUsu.borrarUsuario(usuario);
 
         assertThat(ok, is(true));
     }
@@ -59,7 +59,7 @@ class ServicioUsuariosTest {
         Usuario usuario = new Usuario(4, "Antonio", "alr@gmail.com", LocalDate.now(), true);
 
         assertThrows(UsuarioException.class, () -> {
-            boolean ok = servicio.borrarUsuario(usuario);
+            boolean ok = serviUsu.borrarUsuario(usuario);
         });
     }
 

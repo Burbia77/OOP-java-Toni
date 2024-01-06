@@ -8,6 +8,7 @@ import com.banana.bananawhatsapp.persistencia.IMensajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,7 +19,15 @@ public class ServicioMensajeria implements IServicioMensajeria {
 
     @Override
     public Mensaje enviarMensaje(Usuario remitente, Usuario destinatario, String texto) throws UsuarioException, MensajeException {
-        return null;
+        Mensaje mensa;
+        try {
+            mensa = new Mensaje(null, remitente, destinatario, texto, LocalDate.now());
+            mensajeRepo.crear(mensa);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MensajeException("Error creando mensaje: " + e.getMessage());
+        }
+        return mensa;
     }
 
     @Override
