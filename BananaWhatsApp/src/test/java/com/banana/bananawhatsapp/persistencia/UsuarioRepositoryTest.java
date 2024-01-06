@@ -32,17 +32,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class UsuarioRepositoryTest {
 
     @Autowired
-    IUsuarioRepository repo;
+    IUsuarioRepository repoUsu;
 
     @Test
     void testBeans() {
-        assertThat(repo, notNullValue());
+        assertThat(repoUsu, notNullValue());
     }
 
     @Test
     void dadoUnUsuarioValido_cuandoCrear_entoncesUsuarioValido() throws Exception {
         Usuario nuevo = new Usuario(null, "Antonio", "alr@gmail.com", LocalDate.now(), true);
-        repo.crear(nuevo);
+        repoUsu.crear(nuevo);
         System.out.println(nuevo);
         assertThat(nuevo, notNullValue());
         assertThat(nuevo.getId(), greaterThan(0));
@@ -53,7 +53,7 @@ class UsuarioRepositoryTest {
         Usuario nuevo = new Usuario(null, "Antonio", "alrgmail.com", LocalDate.now(), true);
 
         assertThrows(Exception.class, () -> {
-            repo.crear(nuevo);
+            repoUsu.crear(nuevo);
         });
     }
 
@@ -68,7 +68,7 @@ class UsuarioRepositoryTest {
     @Test
     void dadoUnUsuarioValido_cuandoBorrar_entoncesOK() throws SQLException {
         Usuario usuario = new Usuario(8, "Antonio", "alr@gmail.com", LocalDate.now(), true);
-        boolean ok = repo.borrar(usuario);
+        boolean ok = repoUsu.borrar(usuario);
 
         assertThat(ok, is(true));
     }
@@ -78,7 +78,7 @@ class UsuarioRepositoryTest {
         Usuario usuario = new Usuario(4, "Antunio", "alr@gmail.com", LocalDate.now(), true);
 
         assertThrows(UsuarioException.class, () -> {
-            boolean ok = repo.borrar(usuario);
+            boolean ok = repoUsu.borrar(usuario);
         });
     }
 

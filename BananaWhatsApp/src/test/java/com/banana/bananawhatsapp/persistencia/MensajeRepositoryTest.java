@@ -1,13 +1,60 @@
 package com.banana.bananawhatsapp.persistencia;
 
+import com.banana.bananawhatsapp.config.ReposConfig;
+import com.banana.bananawhatsapp.config.SpringConfig;
+import com.banana.bananawhatsapp.exceptions.MensajeException;
+import com.banana.bananawhatsapp.exceptions.UsuarioException;
+import com.banana.bananawhatsapp.modelos.Mensaje;
+import com.banana.bananawhatsapp.modelos.Usuario;
+import com.banana.bananawhatsapp.servicios.ServicioMensajeria;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {SpringConfig.class})
+
+//Pruebas MensajeDBRepository (se activa el uso del bean prod de ReposConfig)
+@ActiveProfiles("prod")
 class MensajeRepositoryTest {
 
-    IMensajeRepository repo;
+    @Autowired
+    IMensajeRepository repoMen;
+
+    @Autowired
+    IUsuarioRepository repoUsu;
 
     @Test
-    void dadoUnMensajeValido_cuandoCrear_entoncesMensajeValido() {
+    void testBeans() {
+        assertThat(repoMen, notNullValue());
+        assertThat(repoUsu, notNullValue());
+    }
+
+    @Test
+    void dadoUnMensajeValido_cuandoCrear_entoncesMensajeValido() throws UsuarioException, MensajeException, SQLException {
+
+        Usuario usuRem = new Usuario(null, "Pepe", "ppp@gmail.com", LocalDate.now(), true);
+        repoUsu.crear(usuRem);
+
+        Usuario usuDes = new Usuario(null, "Trini", "ttt@gmail.com", LocalDate.now(), true);
+        repoUsu.crear(usuDes);
+
+        /*ALR-NO CONSIGO CREAR EL MENSAJE*/
+        Mensaje nuevoMensaje = new Mensaje(null, usuRem, usuDes, "Hi", LocalDate.now());
+        repoMen.crear(nuevoMensaje);
+        assertThat(nuevoMensaje, notNullValue());
+        assertThat(nuevoMensaje.getId(), greaterThan(0));
+
     }
 
     @Test

@@ -1,8 +1,6 @@
 package com.banana.bananawhatsapp.config;
 
-import com.banana.bananawhatsapp.persistencia.IUsuarioRepository;
-import com.banana.bananawhatsapp.persistencia.UsuarioDBRepository;
-import com.banana.bananawhatsapp.persistencia.UsuarioInMemoryRepository;
+import com.banana.bananawhatsapp.persistencia.*;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +15,7 @@ public class ReposConfig {
     @Value("${db_url}")
     String connUrl;
 
-    //Bean asociado al perfil produccion
+    //Bean asociado al perfil produccion (Usuario)
     @Bean
     @Profile("prod")
     /*public IUsuarioRepository createIUsuarioRepository() {*/
@@ -28,8 +26,7 @@ public class ReposConfig {
         return repo;
     }
 
-
-    //Bean asociado al perfil desarrollo
+    //Bean asociado al perfil desarrollo (Usuario)
     @Bean
     @Profile("dev")
     /*public IUsuarioRepository createInMemUsuarioRepository() {*/
@@ -37,5 +34,16 @@ public class ReposConfig {
         System.out.println("usando persistencia.UsuarioInMemoryRepository (dev)");
         UsuarioInMemoryRepository repo = new UsuarioInMemoryRepository();
         return repo;
+    }
+
+    //Bean asociado al perfil produccion (Mensaje)
+    @Bean
+    @Profile("prod")
+    /*public IMensajeRepository createIMensajeRepository() {*/
+    IMensajeRepository createMensajeRepository() {
+        System.out.println("usando persistencia.MensajeDBRepository (prod)");
+        MensajeDBRepository repoMen = new MensajeDBRepository();
+        repoMen.setDb_url(connUrl);
+        return repoMen;
     }
 }

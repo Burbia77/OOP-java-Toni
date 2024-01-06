@@ -29,7 +29,7 @@ class ControladorUsuariosTest {
     }
 
     @Test
-    void dadoUsuarioValido_cuandoAlta_entoncesUsuarioValido() {
+    void dadoUsuarioValido_cuandoAlta_entoncesUsuarioValido() throws Exception {
         Usuario nuevo = new Usuario(null, "Antonio", "alr@alr.com", LocalDate.now(), true);
         controlador.alta(nuevo);
 
@@ -38,7 +38,12 @@ class ControladorUsuariosTest {
     }
 
     @Test
-    void dadoUsuarioNOValido_cuandoAlta_entoncesExcepcion() {
+    void dadoUsuarioNOValido_cuandoAlta_entoncesExcepcion() throws Exception {
+        Usuario nuevo = new Usuario(null, "Maria", "mariagmail.com", LocalDate.now(), true);
+
+        assertThrows(Exception.class, () -> {
+            controlador.alta(nuevo);
+        });
     }
 
     @Test

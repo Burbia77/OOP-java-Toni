@@ -4,12 +4,15 @@ import com.banana.bananawhatsapp.modelos.Usuario;
 import com.banana.bananawhatsapp.servicios.IServicioUsuarios;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Setter
 @Getter
 public class ControladorUsuarios {
 
-    private IServicioUsuarios servicioUsuarios;
+    /*private IServicioUsuarios servicioUsuarios;*/
+    @Autowired
+    IServicioUsuarios servicioUsuarios;
 
     public Usuario alta(Usuario nuevo) {
         try {
