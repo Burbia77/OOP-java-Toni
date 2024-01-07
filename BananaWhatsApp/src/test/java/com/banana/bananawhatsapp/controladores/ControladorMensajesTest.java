@@ -41,10 +41,15 @@ class ControladorMensajesTest {
         Usuario usuDes = new Usuario(null, "Pol", "ttt@gmail.com", LocalDate.now(), true);
         controlUsu.alta(usuDes);
 
-        //Esto provoca una excepcion por mensaje no valido
-        controlMen.enviarMensaje(usuRem.getId(), usuDes.getId(), "Ande iras");
+        //Vemos que imprime correctamente el ID de los dos ususarios creados.
+        System.out.println(usuRem.getId());
+        System.out.println(usuDes.getId());
 
-        //Y que compruebo en el ASSERTTHAT?.. como lo monto?
+        //Esto no veo el motivo de porqué provoca una excepcion por mensaje no valido, ambas formas en las que lo tengo implementado
+        /*controlMen.enviarMensaje(usuRem.getId(), usuDes.getId(), "Ande iras");*/
+        boolean enviado = controlMen.enviarMensaje(usuRem.getId(), usuDes.getId(), "Ande iras");
+        //No llega aqui, peta antes en ControladorMensajes
+        System.out.println(enviado);
     }
 
     @Test

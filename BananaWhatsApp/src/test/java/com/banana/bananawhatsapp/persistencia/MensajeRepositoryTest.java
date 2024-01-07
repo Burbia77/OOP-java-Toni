@@ -43,15 +43,16 @@ class MensajeRepositoryTest {
     @Test
     void dadoUnMensajeValido_cuandoCrear_entoncesMensajeValido() throws UsuarioException, MensajeException, SQLException {
 
-        Usuario usuRem = new Usuario(null, "Juan", "ppp@gmail.com", LocalDate.now(), true);
+        Usuario usuRem = new Usuario(null, "Lolo", "ppp@gmail.com", LocalDate.now(), true);
         repoUsu.crear(usuRem);
 
-        Usuario usuDes = new Usuario(null, "Sara", "ttt@gmail.com", LocalDate.now(), true);
+        Usuario usuDes = new Usuario(null, "Artu", "ttt@gmail.com", LocalDate.now(), true);
         repoUsu.crear(usuDes);
 
-        Mensaje nuevoMensaje = new Mensaje(null, usuRem, usuDes, "Que tal Sara", LocalDate.now());
+        Mensaje nuevoMensaje = new Mensaje(null, usuRem, usuDes, "Que tal Artu?", LocalDate.now());
 
         repoMen.crear(nuevoMensaje);
+
         assertThat(nuevoMensaje, notNullValue());
         assertThat(nuevoMensaje.getId(), greaterThan(0));
     }

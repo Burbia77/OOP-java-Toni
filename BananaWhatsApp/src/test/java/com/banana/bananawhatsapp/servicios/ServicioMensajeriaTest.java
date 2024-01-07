@@ -45,9 +45,13 @@ class ServicioMensajeriaTest {
         Usuario usuDes = new Usuario(null, "Sara", "ttt@gmail.com", LocalDate.now(), true);
         serviUsu.crearUsuario(usuDes);
 
-        serviMen.enviarMensaje(usuRem, usuDes, "Parece que va a llover");
+        /*serviMen.enviarMensaje(usuRem, usuDes, "Parece que va a llover");*/
 
-        //Y que compruebo en el ASSERTTHAT?.. como lo monto?
+        Mensaje men = serviMen.enviarMensaje(usuRem, usuDes, "Hoy saldras?");
+
+        assertThat(men.getId(), greaterThan(0));
+        assertThat(usuRem.valido(), is(true));
+        assertThat(usuDes.valido(), is(true));
     }
 
     @Test
